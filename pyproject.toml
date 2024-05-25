@@ -1,0 +1,30 @@
+#
+# Copyright (c) 2024 Advanced Micro Devices, Inc.
+# Written by Edgar E. Iglesias <edgar.iglesias@amd.com>
+#
+# SPDX-License-Identifier: MIT
+#
+
+[project]
+name = "xen-checkelf"
+version = "0.0.1"
+authors = [
+  { name="Edgar E. Iglesias", email="edgar.iglesias@gmail.com" },
+]
+description = "Checks ELF files"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+#dependencies = [
+#]
+
+[tool.setuptools]
+packages = ["checkelf"]
+
+[project.scripts]
+xen-checkelf = "checkelf:checkelf_main"
