@@ -90,6 +90,12 @@ class elfmap:
             return True
         return False
 
+    def token_is_reloc(self, token):
+        """
+        Check if a given token is a relocation.
+        """
+        return token.startswith('R_')
+
     def create_callmap(self, section):
         """
         Create a list of called functions from a given section.
@@ -100,9 +106,13 @@ class elfmap:
 
         for line in c.stdout.splitlines():
             tokens = line.split()
+            reloc_idx = len(tokens) - 2
             insn_idx = len(tokens) - 3
             sym_idx = len(tokens) - 1
-            if len(tokens) >= 5 and self.insn_is_call(tokens[insn_idx]):
+            if len(tokens) >= 3 and \
+                    (self.insn_is_call(tokens[insn_idx]) or
+                     self.token_is_reloc(tokens[reloc_idx])):
+
                 name = tokens[sym_idx].strip('<>')
 
                 s = self.symtab['.text'].get(name)
